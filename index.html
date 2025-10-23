@@ -64,27 +64,27 @@
               Pengjun Xie<sup>2</sup>,
             </span>
             <span class="author-block">
-              <a href="https://sites.google.com/site/maojiaxin/">Jiaxin Mao</a><sup>1</sup>,
+              <a href="https://sites.google.com/site/maojiaxin/">Jiaxin Mao</a><sup>1</sup>
             </span>
           </div>
 
           <div class="is-size-5 publication-authors">
             <span class="author-block"><sup>1</sup>Renmin University of China,</span>
-            <span class="author-block"><sup>2</sup>Alibaba Group</span>
+            <span class="author-block"><sup>2</sup>Tongyi Lab, Alibaba Group</span>
           </div>
 
           <div class="column has-text-centered">
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/pdf/2510.00000"
+                <!-- <a href="https://arxiv.org/pdf/2510.00000"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                   </span>
                   <span>Paper</span>
                 </a>
-              </span>
+              </span> -->
               <span class="link-block">
                 <a href="https://arxiv.org/abs/2510.00000"
                    class="external-link button is-normal is-rounded is-dark">
@@ -118,7 +118,7 @@
               </span>
               <!-- Data Link. -->
               <span class="link-block">
-                <a href="https://huggingface.co/datasets/Alibaba-NLP/E2Rank_ranking_dataset"
+                <a href="https://huggingface.co/datasets/Alibaba-NLP/E2Rank_ranking_datasets"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                     <i class="fa fa-database"></i>
@@ -132,25 +132,21 @@
         </div>
       </div>
     </div>
-
-    <section class="hero teaser has-text-centered">
-        <div class="container is-max-desktop">
-          <div class="hero-body">
-            <img src="./static/images/cover.png" width="60%"/>
-  
-            <p style="width: 70%; margin-left: auto; margin-right: auto">
-              <b>(a)</b> Overview of E2Rank. <b>(b)</b> Average reranking performance on the BEIR benchmark, E2Rank outperforms other baselines. <b>(c)</b> Reranking latency per query on the Covid dataset, E2Rank can achieve several times the acceleration compared with RankQwen3.
-            </p>
-          </div>
-        </div>
-    </section>
   </div>
 </section>
 
-
 <section class="section">
-
-  <div class="container is-max-desktop">
+  <section class="hero teaser has-text-centered">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <img src="./static/images/cover.png" width="80%"/>
+        <p style="width: 80%; margin-left: auto; margin-right: auto">
+          <b>(a)</b> Overview of E2Rank. <b>(b)</b> Average reranking performance on the BEIR benchmark, E2Rank outperforms other baselines. <b>(c)</b> Reranking latency per query on the Covid dataset, E2Rank can achieve several times the acceleration compared with RankQwen3.
+        </p>
+      </div>
+    </div>
+  </section>
+  <div class="container is-max-desktop content">
     <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
@@ -158,10 +154,8 @@
         <div class="content has-text-justified">
           <p>
           Text embedding models serve as a fundamental component in real-world search
-          applications. By mapping queries and documents into a shared embedding space,
-          they deliver competitive retrieval performance with high efficiency. However,
-          their ranking fidelity remains limited compared to dedicated rerankers, especially
-          recent LLM-based listwise rerankers, which capture fine-grained query-document
+          applications. However, their ranking fidelity remains limited compared to dedicated rerankers, 
+          especially recent LLM-based listwise rerankers, which capture fine-grained query-document
           and document-document interactions.
           </p>
           <p>
@@ -174,54 +168,141 @@
           document embeddings as a unified ranking function, the listwise ranking prompt,
           which is constructed from the original query and its candidate documents, serves
           as an enhanced query enriched with signals from the top-K documents, akin to
-          pseudo-relevance feedback (PRF) in traditional retrieval models. This design 
+          <b>pseudo-relevance feedback (PRF)</b> in traditional retrieval models. This design 
           preserves the efficiency and representational quality of the base embedding model
           while significantly improving its reranking performance. 
           </p>
           <p>
-          Empirically, E2Rank achieves state-of-the-art results on the BEIR reranking benchmark 
+          Empirically, E2Rank achieves <b>state-of-the-art results</b> on the BEIR reranking benchmark 
           and demonstrates competitive performance on the reasoning-intensive BRIGHT benchmark,
-          with very low reranking latency. We also show that the ranking training process
-          improves embedding performance on the MTEB benchmark. 
-          Our findings indicate that a single embedding model can effectively unify retrieval and reranking,
-          offering both computational efficiency and competitive ranking accuracy.
+          with very low reranking latency. We also show that E2Rank's advanced embedding ability 
+          on the MTEB benchmark. 
+          </p>
+          <p><b>
+          Our work highlights the potential of single embedding models to serve as unified 
+          retrieval-reranking engines, offering a practical, efficient, and accurate alternative 
+          to complex multi-stage ranking systems.
+          </b></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container is-max-desktop content">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">E2Rank: Embedding-to-Rank</h2>
+        <div class="content has-text-justified">
+          <h3 class="title is-4">Listwise Prompts as Pseudo Relevance Feedback Query</h3>
+          <p>
+            E2Rank leverages the <span style="color: red"><b>pseudo relevance feedback</b></span> 
+            signals of the top-K retrieved documents 
+            to strengthen query representation. Instead of treating each query-document pair 
+            independently, the listwise prompt is constructed by concatenating the query and its 
+            candidate documents into a single sequence, allowing the model to capture both 
+            query-document and document-document interactions within the candidate set. 
+          </p>
+          <p>
+            During inference, cosine similarity between the pseudo query embedding (generated from the listwise
+            prompt) and each standalone document embedding serves as the ranking function. 
+            This formulation keeps the model highly efficient while significantly improving 
+            listwise fidelity.
+          </p>
+          <h3 class="title is-4">Training the Unified Embedding and Listwise Reranking Model</h3>
+          <p>
+            The training of E2Rank follows a two-stage paradigm designed to retain strong retrieval 
+            capability while injecting listwise ranking signals into the embedding space.
+          </p>
+          <p>
+            <b>Stage 1: Training the Embedding with Contrastive Learning</b>
+          </p>
+          <p>
+            We first train the base embedding model with contrastive learning. 
+            This stage ensures strong initial retrieval accuracy and computational efficiency. 
+            The model trained in this stage is directly capable of standalone retrieval and 
+            serves as the initialization for the unified ranking framework.
+          </p>
+          <p>
+            <b>Stage 2: Listwise Ranking Enhancement</b>
+          </p>
+          <p>
+            To further improve the ranking fidelity within the retrieved candidate set, 
+            we perform continued training using a learning-to-rank objective, RankNet Loss. 
+            Given a query and its top-K retrieved documents, we construct a listwise prompt 
+            by concatenating them as pseudo relevance feedback query. 
+            During training, we optimize cosine similarity between this enhanced 
+            query embedding and each candidate document embedding to align with ground-truth 
+            relevance labels. Contrastive learning is also used in this stage. 
+            <b>This stage injects rich ranking knowledge into the embedding model, 
+            enabling it to serve not only as a retriever but also as an effective and efficient 
+            listwise reranker.</b>
+          </p>
+          <p>
+            As a result, E2Rank unifies retrieval and reranking within a single model.
           </p>
         </div>
       </div>
     </div>
-    <!--/ Abstract. -->
+  </div>
 
-</section>
-
-<section class="section">
   <div class="container is-max-desktop content">
-    <h2 class="title">E2Rank: Your Text Embedding can Also be an Effective and Efficient Listwise Reranker</h2>
-    <div class="content has-text-justified">
-      <h3 class="title">Listwise Prompts as Pseudo Relevance Feedback Query</h3>
-      <div class="content has-text-justified">
-
-      </div>
-      <h3 class="title">Training the Unified Embedding and Listwise Reranking Model</h3>
-      <div class="content has-text-justified">  
-        
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Results</h2>
+        <div class="content has-text-justified">
+          <h3 class="title is-4">Reranking Performance</h3>
+          <p>
+            <b>Effectiveness.</b> As shown in Figure (b), E2Rank achieves <b>state-of-the-art performance on the BEIR benchmark</b>. 
+            It consistently RankQwen3 and approaches, demonstrateing that a single embedding model, when properly trained, can perform 
+            high-quality listwise reranking without relying on heavyweight generative architectures. 
+          </p>
+          <div class="has-text-centered">
+            <img src="./static/images/beir_results.png" width="90%"/>
+          </div>
+          <p>
+            Additionally, E2Rank delivers strong results on the reasoning-intensive BRIGHT benchmark, without any RL training and
+            training data synthesis, showcasing its versatility across diverse ranking scenarios.
+          </p>
+          <div class="has-text-centered">
+            <img src="./static/images/bright_results.png" width="90%"/>
+          </div>
+          <p>
+            <b>Efficiency.</b> E2Rank inherits the advantages of the embedding model, supports batch inference, 
+            and can encode document embeddings offline, further reducing online reranking latency. 
+            As shown in Figure (c), E2Rank significantly reduces inference latency across 
+            all model sizes compared to RankQwen3, achieving up to about <b>5x speedup at 8B</b> 
+            while maintaining superior ranking performance. 
+            Even E2Rank-8B model is faster than RankQwen3-0.6B. 
+          </p>
+          <h3 class="title is-4">Embedding Performance</h3>
+          <p>
+            Beyond reranking gains, on the MTEB benchmark, E2Rank demonstrates strong embedding capabilities, 
+            while E2Rank-8B shows slight performance advantages on average compared to previous advanced models. 
+            Notably, compared with the variant with only contrastive learning, distilling from richer ranking 
+            signals will bring consistent and significant enhancements in retrieval tasks , demonstrating the 
+            effectiveness of the ranking objective.
+          </p>
+          <div class="has-text-centered">
+            <img src="./static/images/mteb_results.png" width="90%"/>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container is-max-desktop content">
-    <h2 class="title">Results</h2>
   </div>
 </section>
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
-    <h2 class="title">BitTeX</h2>
-    <pre><code>
-</code></pre>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">BitTeX</h2>
+        <pre><code>
+        </code></pre>
+      </div>
+    </div>
   </div>
 </section>
+
 
 
 <footer class="footer">
