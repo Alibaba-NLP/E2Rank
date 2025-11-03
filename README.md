@@ -64,7 +64,7 @@ offering both computational efficiency and competitive ranking accuracy.
 
 ### Embedding Model
 
-The usage of E2Rank as an embedding model is similar to [Qwen3-Embedding](https://github.com/QwenLM/Qwen3-Embedding). The only difference is that Qwen3-Embedding will automatically append an EOS token, while E2Rank requires users to manully append the special token `<|endoftext|>` at the end of each input text.
+The usage of E2Rank as an embedding model is similar to [Qwen3-Embedding](https://github.com/QwenLM/Qwen3-Embedding). The only difference is that Qwen3-Embedding will automatically append an EOS token, while E2Rank requires users to manually append the special token `<|endoftext|>` at the end of each input text.
 
 
 **vLLM Usage (recommended)**
