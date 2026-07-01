@@ -346,7 +346,7 @@ cd E2Rank
 pip install -r requirements.txt
 
 # for evaluation, we also use LLM4Ranking framework
-pip install git@github.com:liuqi6777/llm4ranking.git
+pip install git+https://github.com/liuqi6777/llm4ranking.git@342428549f0611372b83b7bce6a0d547eb4af1c5 
 ```
 
 ## Training
@@ -381,7 +381,7 @@ For training E2Rank-4B and E2Rank-8B models, the training process is similar. Th
 
 The implementation of evaluation on reranking benchmarks are based on [LLM4Ranking](https://github.com/liuqi6777/llm4ranking) framework:
 ```bash
-pip install git@github.com:liuqi6777/llm4ranking.git@342428549f0611372b83b7bce6a0d547eb4af1c5
+pip install git+https://github.com/liuqi6777/llm4ranking.git@342428549f0611372b83b7bce6a0d547eb4af1c5 
 ```
 To evaluate the model's reranking performance on BEIR and BRIGHT benchmarks, run the following script:
 
