@@ -1,9 +1,7 @@
-torch==2.6.0+cu124
-torchvision==0.21.0
-torchaudio==2.6.0
+torch==2.6.0
 transformers==4.52.3
 vllm==0.8.5.post1
-datasets==3.6.0
+datasets
 openai
 tiktoken
 accelerate
@@ -14,4 +12,5 @@ modelscope
 faiss-cpu
 tabulate
 mteb==1.38.32
-
+pytrec_eval
+ujson
