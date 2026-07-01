@@ -378,7 +378,7 @@ For training E2Rank-4B and E2Rank-8B models, the training process is similar. Th
 
 The implementation of evaluation on reranking benchmarks are based on [LLM4Ranking](https://github.com/liuqi6777/llm4ranking) framework:
 ```bash
-git clone https://github.com/liuqi6777/llm4ranking.git@342428549f0611372b83b7bce6a0d547eb4af1c5
+git clone https://github.com/liuqi6777/llm4ranking.git
 cd llm4ranking
 git checkout 342428549f0611372b83b7bce6a0d547eb4af1c5
 pip install -e . --no-deps
